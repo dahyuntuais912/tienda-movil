@@ -1,0 +1,126 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: white;
+}
+
+/* LOGIN */
+
+.login-page {
+  text-align: center;
+  margin-top: 120px;
+}
+
+.login-box {
+  width: 300px;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+}
+
+.login-box h1 {
+  color: #2455a4;
+}
+
+.login-box label {
+  display: block;
+  text-align: left;
+  margin-top: 15px;
+}
+
+.login-box input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  box-sizing: border-box;
+}
+
+.login-box button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 20px;
+  background-color: #2455a4;
+  color: white;
+  border: none;
+}
+
+.registro {
+  font-size: 13px;
+}
+
+/* PARTE PRINCIPAL */
+
+header {
+  background-color: #2455a4;
+  color: white;
+  padding: 15px;
+}
+
+header h1 {
+  margin: 0 0 15px 0;
+}
+
+.buscador {
+  padding: 8px;
+  width: 250px;
+}
+
+.carrito-titulo {
+  margin-top: 10px;
+}
+
+main {
+  padding: 20px;
+}
+
+.productos-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.producto {
+  width: 180px;
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+.producto-imagen {
+  font-size: 35px;
+}
+
+.producto h3 {
+  font-size: 16px;
+}
+
+.precio {
+  font-weight: bold;
+}
+
+.producto button {
+  padding: 8px;
+  background-color: #2455a4;
+  color: white;
+  border: none;
+}
+
+.carrito {
+  margin-top: 30px;
+  border-top: 1px solid #ccc;
+  padding-top: 15px;
+}
+
+.item-carrito {
+  margin-bottom: 15px;
+}
+
+.item-carrito button {
+  color: red;
+}
+
+.comprar {
+  padding: 10px;
+  background-color: #2455a4;
+  color: white;
+  border: none;
+}
