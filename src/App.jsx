@@ -4,20 +4,28 @@ import './App.css'
 function App() {
   const [sesion, setSesion] = useState(false)
   const [busqueda, setBusqueda] = useState('')
+  const [categoria, setCategoria] = useState('Todas')
   const [carrito, setCarrito] = useState([])
 
-  const productos = [
-    { id: 1, nombre: 'Audífonos Bluetooth', precio: 599, emoji: '🎧' },
-    { id: 2, nombre: 'Tenis deportivos', precio: 899, emoji: '👟' },
-    { id: 3, nombre: 'Mochila', precio: 450, emoji: '🎒' },
-    { id: 4, nombre: 'Reloj inteligente', precio: 1299, emoji: '⌚' },
-    { id: 5, nombre: 'Lámpara de escritorio', precio: 349, emoji: '💡' },
-    { id: 6, nombre: 'Termo', precio: 299, emoji: '🥤' },
-  ]
+const productos = [
+  { id: 1, nombre: 'Audífonos Bluetooth', precio: 599, emoji: '🎧', categoria: 'Tecnología' },
+  { id: 2, nombre: 'Tenis deportivos', precio: 899, emoji: '👟', categoria: 'Moda' },
+  { id: 3, nombre: 'Mochila', precio: 450, emoji: '🎒', categoria: 'Accesorios' },
+  { id: 4, nombre: 'Reloj inteligente', precio: 1299, emoji: '⌚', categoria: 'Tecnología' },
+  { id: 5, nombre: 'Lámpara de escritorio', precio: 349, emoji: '💡', categoria: 'Hogar' },
+  { id: 6, nombre: 'Termo', precio: 299, emoji: '🥤', categoria: 'Accesorios' },
+]
 
-  const productosFiltrados = productos.filter((producto) =>
-    producto.nombre.toLowerCase().includes(busqueda.toLowerCase())
-  )
+const productosFiltrados = productos.filter((producto) => {
+  const coincideNombre = producto.nombre
+    .toLowerCase()
+    .includes(busqueda.toLowerCase())
+
+  const coincideCategoria =
+    categoria === 'Todas' || producto.categoria === categoria
+
+  return coincideNombre && coincideCategoria
+})
 
   const agregarCarrito = (producto) => {
     setCarrito([...carrito, producto])
@@ -78,6 +86,21 @@ function App() {
           <h2>Productos</h2>
           <p>Encuentra lo que necesitas</p>
 
+          <div className="categorias">
+  <label htmlFor="categoria">Categoría: </label>
+
+  <select
+    id="categoria"
+    value={categoria}
+    onChange={(e) => setCategoria(e.target.value)}
+  >
+    <option value="Todas">Todas</option>
+    <option value="Tecnología">Tecnología</option>
+    <option value="Moda">Moda</option>
+    <option value="Accesorios">Accesorios</option>
+    <option value="Hogar">Hogar</option>
+  </select>
+</div>
           <div className="productos-grid">
             {productosFiltrados.map((producto) => (
               <div className="producto" key={producto.id}>
