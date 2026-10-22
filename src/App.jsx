@@ -27,13 +27,31 @@ const productosFiltrados = productos.filter((producto) => {
   return coincideNombre && coincideCategoria
 })
 
-  const agregarCarrito = (producto) => {
-    setCarrito([...carrito, producto])
-  }
+const agregarCarrito = (producto) => {
+  const existe = carrito.find((item) => item.id === producto.id)
 
-  const eliminarCarrito = (indice) => {
-    setCarrito(carrito.filter((_, i) => i !== indice))
+  if (existe) {
+    setCarrito(carrito.map((item) =>
+      item.id === producto.id
+        ? { ...item, cantidad: item.cantidad + 1 }
+        : item
+    ))
+  } else {
+    setCarrito([...carrito, { ...producto, cantidad: 1 }])
   }
+}
+
+const cambiarCantidad = (id, cambio) => {
+  setCarrito(carrito.map((item) =>
+    item.id === id
+      ? { ...item, cantidad: Math.max(1, item.cantidad + cambio) }
+      : item
+  ))
+}
+
+const eliminarCarrito = (id) => {
+  setCarrito(carrito.filter((item) => item.id !== id))
+}
 
   if (!sesion) {
     return (
@@ -77,7 +95,7 @@ const productosFiltrados = productos.filter((producto) => {
         />
 
         <div className="carrito-titulo">
-          🛒 Carrito ({carrito.length})
+🛒 Carrito ({carrito.reduce((total, producto) => total + producto.cantidad, 0)})
         </div>
       </header>
 
@@ -131,24 +149,41 @@ const productosFiltrados = productos.filter((producto) => {
             <p>Tu carrito está vacío.</p>
           ) : (
             <>
-              {carrito.map((producto, indice) => (
-                <div className="item-carrito" key={indice}>
-                  <div>
-                    <strong>{producto.nombre}</strong>
-                    <p>${producto.precio} MXN</p>
-                  </div>
+{carrito.map((producto) => (
+  <div className="item-carrito" key={producto.id}>
+    <div>
+      <strong>{producto.nombre}</strong>
 
-                  <button onClick={() => eliminarCarrito(indice)}>
-                    Eliminar
-                  </button>
-                </div>
-              ))}
+      <p>${producto.precio.toLocaleString('es-MX')} MXN c/u</p>
+
+      <div className="cantidad">
+        <button onClick={() => cambiarCantidad(producto.id, -1)}>
+          -
+        </button>
+
+        <span>{producto.cantidad}</span>
+
+        <button onClick={() => cambiarCantidad(producto.id, 1)}>
+          +
+        </button>
+      </div>
+
+      <p>
+        Subtotal: ${(producto.precio * producto.cantidad).toLocaleString('es-MX')} MXN
+      </p>
+    </div>
+
+    <button onClick={() => eliminarCarrito(producto.id)}>
+      Eliminar
+    </button>
+  </div>
+))}
 
               <h3>
                 Total: $
-                {carrito
-                  .reduce((total, producto) => total + producto.precio, 0)
-                  .toLocaleString('es-MX')}{' '}
+{carrito
+  .reduce((total, producto) => total + producto.precio * producto.cantidad, 0)
+  .toLocaleString('es-MX')}{' '}
                 MXN
               </h3>
 
