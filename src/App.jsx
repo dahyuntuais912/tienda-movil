@@ -66,11 +66,22 @@ const eliminarCarrito = (id) => {
               setSesion(true)
             }}
           >
-            <label>Correo electrónico</label>
-            <input type="email" placeholder="correo@ejemplo.com" required />
+  <label htmlFor="correo">Correo electrónico</label>
+<input
+  id="correo"
+  type="email"
+  placeholder="correo@ejemplo.com"
+  required
+/>
 
-            <label>Contraseña</label>
-            <input type="password" placeholder="Contraseña" required />
+<label htmlFor="contrasena">Contraseña</label>
+<input
+  id="contrasena"
+  type="password"
+  placeholder="Contraseña"
+  minLength={6}
+  required
+/>
 
             <button type="submit">Iniciar sesión</button>
           </form>
